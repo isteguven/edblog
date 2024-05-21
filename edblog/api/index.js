@@ -24,3 +24,13 @@ mongoose.connect (
 
  app.use('/api/user', userRoutes);
  app.use('/api/auth', authRoutes);
+ //middleware for error handling
+ app.use((err,req,res,next)=>{
+const statusCode = err.statusCode || 500;
+const message = err.message || 'Sunucu hatası!';
+res.status(statusCode).json({
+    success:false,
+    statusCode,
+    message
+ })
+ })
