@@ -1,7 +1,7 @@
  import express from 'express';
  import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import userRoutes from './routes/user.route.js'
 dotenv.config();
 mongoose.connect (
     process.env.MONGO
@@ -12,11 +12,10 @@ mongoose.connect (
             })
 
  const app = express();
- 
- 
- 
-
 
  app.listen(3001, () =>{
     console.log('Sunucu 3001 portunda çalışıyor! ');
  });
+
+
+ app.use('/api/user', userRoutes);
