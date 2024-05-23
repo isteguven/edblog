@@ -49,8 +49,8 @@ export default function  SignUp () {
           <p className=" text-sm mt-5  w-max inline">
             {" "}
             <Badge color="info">
-              Bu bir demo projedir. Eposta adresiniz ve şifrenizle veya google
-              hesabınızla giriş yapabilirsiniz...
+              Bu bir demo projedir. Kullanıcı adınız, eposta adresiniz ve şifrenizle veya google
+              hesabınızla kaydolup giriş yapabilirsiniz...
             </Badge>
           </p>
         </div>
