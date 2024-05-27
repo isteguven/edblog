@@ -52,7 +52,17 @@ if (req.body.username) {
         res.status(200).json(rest);
       } catch (error) {
         next(error);
-      }
-      
+      }    
     };
 
+    export const deleteUser = async(req,res,next)=>{
+        if(req.user.id !== req.params.userId){
+          return next(errorHandler(403,'Bu kullanıcı hesabını silme yetkiniz yok!'))
+        }
+        try {
+          await User.findByIdAndDelete(req.params.userId);
+          res.status(200).json('Kullanıcı hesabı silindi!');
+        } catch (error) {
+          next(error);
+        }
+      };

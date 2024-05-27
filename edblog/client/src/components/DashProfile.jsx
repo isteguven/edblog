@@ -1,4 +1,4 @@
-import { Alert, Button, TextInput } from "flowbite-react";
+import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -6,6 +6,9 @@ import {
   updateSuccess,
   updateFailure,
   signoutSuccess,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from "../redux/user/userSlice";
 import {
   getDownloadURL,
@@ -17,6 +20,7 @@ import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useDispatch } from "react-redux";
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -24,6 +28,7 @@ export default function DashProfile() {
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
+  const [showModal,setShowModal] =useState(false);
   const [imageFileUploading, setImageFileUploading] = useState({});
   const [formData, setFormData] = useState({});
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
@@ -127,6 +132,24 @@ export default function DashProfile() {
     }
   };
 
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
 
   const handleSignout = async () => {
     try {
@@ -222,7 +245,7 @@ export default function DashProfile() {
         </Button>
       </form>
       <div className="flex justify-between mt-5 ">
-        <span className="cursor-pointer text-red-500  rounded-lg hover:bg-red-500 hover:text-white ">
+        <span onClick={()=>setShowModal(true)} className="cursor-pointer text-red-500  rounded-lg hover:bg-red-500 hover:text-white ">
           Hesabı Sil
         </span>
         <span className="cursor-pointer text-orange-500  rounded-lg hover:bg-orange-300 hover:text-white">
@@ -239,6 +262,34 @@ export default function DashProfile() {
           {updateUserError}
         </Alert>
       )}
+       {error && (
+        <Alert color='failure' className='mt-5'>
+          {error}
+        </Alert>
+      )}
+       <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size='md'
+      > <Modal.Header />
+      <Modal.Body>
+        <div className='text-center'>
+          <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
+          <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+            Hesabını silmek istediğinden emin misin?
+          </h3>
+          <div className='flex justify-center gap-4'>
+            <Button color='failure' onClick={handleDeleteUser}>
+              Evet, SİL!
+            </Button>
+            <Button color='green' onClick={() => setShowModal(false)}>
+              Hayır, İPTAL!
+            </Button>
+          </div>
+        </div>
+      </Modal.Body>
+    </Modal>
     </div>
   );
 }
