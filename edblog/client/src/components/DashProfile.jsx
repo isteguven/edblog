@@ -21,6 +21,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -29,7 +30,7 @@ export default function DashProfile() {
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [showModal,setShowModal] =useState(false);
-  const [imageFileUploading, setImageFileUploading] = useState({});
+  const [imageFileUploading, setImageFileUploading] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
@@ -105,7 +106,10 @@ export default function DashProfile() {
       setUpdateUserError("Değişiklik yapılmadı!");
       return;
     }
-   
+    if (imageFileUploading) {
+      setUpdateUserError('Fotoğrafın yüklenmesini bekleyin!');
+      return;
+    }
     try {
       dispatch(updateStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
@@ -236,9 +240,21 @@ export default function DashProfile() {
           defaultValue="**********"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
+        <Button type="submit" gradientDuoTone="purpleToBlue" outline
+        disabled={loading || imageFileUploading}>
         {loading ? 'Yükleniyor...' : 'Profil Bilgilerimi Güncelle'}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToBlue'
+              className='w-full'
+            >
+              Yeni Yazı 
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="flex justify-between mt-5 ">
         <span onClick={()=>setShowModal(true)} className="cursor-pointer text-red-500  rounded-lg hover:bg-red-500 hover:text-white ">
