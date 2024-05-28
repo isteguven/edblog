@@ -105,10 +105,7 @@ export default function DashProfile() {
       setUpdateUserError("Değişiklik yapılmadı!");
       return;
     }
-    if (imageFileUploading) {
-      setUpdateUserError("Lütfen fotoğrafın yüklenmesini bekleyiniz!");
-      return;
-    }
+   
     try {
       dispatch(updateStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
@@ -149,7 +146,6 @@ export default function DashProfile() {
       dispatch(deleteUserFailure(error.message));
     }
   };
-
 
   const handleSignout = async () => {
     try {
@@ -248,7 +244,7 @@ export default function DashProfile() {
         <span onClick={()=>setShowModal(true)} className="cursor-pointer text-red-500  rounded-lg hover:bg-red-500 hover:text-white ">
           Hesabı Sil
         </span>
-        <span className="cursor-pointer text-orange-500  rounded-lg hover:bg-orange-300 hover:text-white">
+        <span onClick={handleSignout} className="cursor-pointer text-orange-500  rounded-lg hover:bg-orange-300 hover:text-white">
           Çıkış
         </span>
       </div>

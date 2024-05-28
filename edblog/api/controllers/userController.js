@@ -66,3 +66,14 @@ if (req.body.username) {
           next(error);
         }
       };
+
+      export const signout = (req, res, next) => {
+        try {
+          res
+            .clearCookie('access_token')
+            .status(200)
+            .json('Kullanıcı çıkış yaptı!');
+        } catch (error) {
+          next(error);
+        }
+      };
