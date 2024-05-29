@@ -103,13 +103,13 @@ export default function CreatePost() {
             }
           >
             <option value='uncategorized'>Kategori Seç</option>
-            <option value='ss'>Savunma Sanayii</option>
-            <option value='tsk'>TSK</option>
-            <option value='prj'>Projeler</option>
-            <option value='ask'>Askerlik</option>
-            <option value='ak'>Askeri Kariyer</option>
-            <option value='ah'>Asker Hakları</option>
-            <option value='adb'>Askerin Din Bilgisi</option>
+            <option value='Savunma Sanayii'>Savunma Sanayii</option>
+            <option value='TSK'>TSK</option>
+            <option value='Projeler'>Projeler</option>
+            <option value='Askerlik'>Askerlik</option>
+            <option value='Askeri Kariyer'>Askeri Kariyer</option>
+            <option value='Asker Hakları'>Asker Hakları</option>
+            <option value='Askerin Din Bilgisi'>Askerin Din Bilgisi</option>
           </Select>
             </div>
             <div className='flex gap-4 items-center justify-between border-4 border-cyan-300 border-dotted p-3'>
