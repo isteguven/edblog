@@ -70,3 +70,15 @@ export const getPosts =async(req,res,next)=>{
       next(error);
     }
   }
+
+  export const deletepost = async (req, res, next) => {
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+      return next(errorHandler(403, 'Bu yazıyı silme yetkiniz yok!'));
+    }
+    try {
+      await Post.findByIdAndDelete(req.params.postId);
+      res.status(200).json('Yazı silindi!');
+    } catch (error) {
+      next(error);
+    }
+  };
