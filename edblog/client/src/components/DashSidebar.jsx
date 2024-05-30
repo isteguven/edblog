@@ -66,6 +66,17 @@ export default function DashSidebar() {
   </Sidebar.Item>
 </Link>
 )}
+{currentUser.isAdmin && (
+  <Link to='/dashboard?tab=users'>
+  <Sidebar.Item
+  active={tab==='users'}
+  icon={HiOutlineUserGroup}  
+  as='div'
+  >
+    Kullanıcılar
+  </Sidebar.Item>
+</Link>
+)}
 
           <Sidebar.Item onClick={handleSignout} icon={HiArrowSmRight} className="cursor-pointer">
             Çıkış
