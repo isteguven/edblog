@@ -134,7 +134,7 @@ export default function CreatePost() {
                 />
               </div>
             ) : (
-              'İmaj Yükle'
+              'Görsel Yükle'
             )}           
           
           </Button>

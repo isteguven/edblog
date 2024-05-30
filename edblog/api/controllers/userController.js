@@ -77,3 +77,43 @@ if (req.body.username) {
           next(error);
         }
       };
+
+      export const getUsers = async(req,res,next)=>{
+        if(!req.user.isAdmin){
+          return next(errorHandler(403,'Tüm kullanıcıları görme yetkiniz yok!'))}
+        try {
+         const startIndex =parseInt(req.query.startIndex) || 0;
+         const limit = parseInt(req.query.limit) || 10;
+         const sortDirection = req.query.sort ==='asc' ? 1 : -1;
+
+         const users = await User.find()
+         .sort({createdAt:sortDirection})
+         .skip(startIndex)
+         .limit(limit);
+
+         const userWithoutPassword = users.map((user)=>{
+          const {password, ...rest} = user._doc;
+          return rest;
+         })
+         
+const totalUsers = await User.countDocuments();
+
+const now = new Date();
+const OneMonthAgo= new Date(
+  now.getFullYear(),
+  now.getMonyh()-1,
+  now.getDate()
+)
+const lastMonthUsers = await User.countDocuments({
+  createdAt:{$gte:OneMonthAgo},
+})
+
+res.status(200).json({
+  users:userWithoutPassword,
+  totalUsers,
+  lastMonthUsers,
+})
+} catch (error) {
+          next(error);
+        }
+      }
