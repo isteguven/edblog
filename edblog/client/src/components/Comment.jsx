@@ -35,7 +35,6 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     setEditedContent(comment.content);
   };
 
-
   const handleSave = async () => {
     try {
       const res = await fetch(`/api/comment/editComment/${comment._id}`, {
@@ -86,19 +85,19 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               <Button
                 type='button'
                 size='sm'
-                gradientDuoTone='purpleToBlue'
+                gradientDuoTone='greenToBlue'
                 onClick={handleSave}
               >
-                Save
+                Kaydet
               </Button>
               <Button
                 type='button'
                 size='sm'
-                gradientDuoTone='purpleToBlue'
+                gradientDuoTone='purpleToPink'
                 outline
                 onClick={() => setIsEditing(false)}
               >
-                Cancel
+               İptal
               </Button>
             </div>
           </>
