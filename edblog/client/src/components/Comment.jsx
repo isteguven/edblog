@@ -1,4 +1,9 @@
-import moment from 'moment';
+/* eslint-disable react/prop-types */
+//import moment from "moment";
+import moment from 'moment/min/moment-with-locales';
+import "moment/locale/tr";
+moment.locale("tr");
+//import tr from 'moment/locale/tr'
 import { useEffect, useState } from 'react';
 import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -10,7 +15,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
-  useEffect(() => {
+   useEffect(() => {
     const getUser = async () => {
       try {
         const res = await fetch(`/api/user/${comment.userId}`);
@@ -29,6 +34,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     setIsEditing(true);
     setEditedContent(comment.content);
   };
+
 
   const handleSave = async () => {
     try {
@@ -49,11 +55,13 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       console.log(error.message);
     }
   };
+ 
+  
   return (
     <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
       <div className='flex-shrink-0 mr-3'>
         <img
-          className='w-10 h-10 rounded-full bg-gray-200'
+          className='w-10 h-10 rounded-full bg-gray-200 border-2 border-amber-300'
           src={user.profilePicture}
           alt={user.username}
         />
@@ -61,10 +69,10 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       <div className='flex-1'>
         <div className='flex items-center mb-1'>
           <span className='font-bold mr-1 text-xs truncate'>
-            {user ? `@${user.username}` : 'anonymous user'}
+            {user ? `@${user.username}` : 'Anonim kullanıcı'}
           </span>
           <span className='text-gray-500 text-xs'>
-            {moment(comment.createdAt).fromNow()}
+            {moment(comment.createdAt).fromNow() } 
           </span>
         </div>
         {isEditing ? (

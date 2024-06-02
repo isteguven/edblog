@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 //import Comment from './Comment';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import Comment from "./Comment";
 
 export default function CommentSection({ postId }) {
     const { currentUser } = useSelector((state) => state.user);
@@ -41,6 +42,22 @@ export default function CommentSection({ postId }) {
           setCommentError(error.message);
         }
       };
+
+      useEffect(() => {
+        const getComments = async () => {
+          try {
+            const res = await fetch(`/api/comment/getPostComments/${postId}`);
+            if (res.ok) {
+              const data = await res.json();
+              setComments(data);
+            }
+          } catch (error) {
+            console.log(error.message);
+          }
+        };
+        getComments();
+      }, [postId]);
+
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
       {currentUser ? (
@@ -89,6 +106,23 @@ export default function CommentSection({ postId }) {
         </form>
         
       )}
-      </div>
+     {comments.length === 0 ? (
+        <p className='text-xs my-5'>Henüz yorum yapılmamış!</p>
+      ) : (
+       <>
+          <div className='text-xs my-5 flex items-center gap-1'>
+            <p>Yorum sayısı</p>
+            <div className='border border-gray-400 py-1 px-2 rounded-sm'>
+              <p>{comments.length}</p>
+            </div>
+          </div>{
+          comments.map((comment)=>(
+            <Comment key={comment._id} comment={comment}/>
+          ))
+}
+          </>
+      )}
+      
+    </div>
   );
 }
