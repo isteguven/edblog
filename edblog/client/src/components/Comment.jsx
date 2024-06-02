@@ -5,7 +5,7 @@ import "moment/locale/tr";
 moment.locale("tr");
 //import tr from 'moment/locale/tr'
 import { useEffect, useState } from 'react';
-import { FaThumbsUp } from 'react-icons/fa';
+import { FaThumbsUp,FaThumbsDown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 import { set } from 'mongoose';
@@ -105,14 +105,14 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
         ) : (
           <>
             <p className='text-gray-500 pb-2'>{comment.content}</p>
-            <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2'>
+            <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-4'>
               <button
                 type='button'
                 onClick={() => onLike(comment._id)}
-                className={`text-gray-400 hover:text-blue-500 ${
+                className={`text-gray-400 hover:text-green-300 ${
                   currentUser &&
                   comment.likes.includes(currentUser._id) &&
-                  '!text-blue-500'
+                  '!text-green-300' 
                 }`}
               >
                 <FaThumbsUp className='text-sm' />
@@ -121,7 +121,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                 {comment.numberOfLikes > 0 &&
                   comment.numberOfLikes +
                     ' ' +
-                    (comment.numberOfLikes === 1 ? 'like' : 'likes')}
+                    (comment.numberOfLikes === 1 ? 'beğeni' : 'beğeni')}
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
@@ -131,14 +131,14 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                       onClick={handleEdit}
                       className='text-gray-400 hover:text-blue-500'
                     >
-                      Edit
+                      Güncelle
                     </button>
                     <button
                       type='button'
                       onClick={() => onDelete(comment._id)}
                       className='text-gray-400 hover:text-red-500'
                     >
-                      Delete
+                      Sil
                     </button>
                   </>
                 )}
