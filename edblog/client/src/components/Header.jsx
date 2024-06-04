@@ -27,7 +27,7 @@ export default function Header() {
     }
   };
   return (
-    <Navbar className="border-b-2">
+    <Navbar className="border-b-2 sticky top-0  z-40">
       <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-3xl font-semibold dark:text-white"

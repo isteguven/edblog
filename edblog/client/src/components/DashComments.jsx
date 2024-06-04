@@ -82,7 +82,7 @@ export default function DashComments() {
               <Table.HeadCell>Yorum İÇERİĞİ</Table.HeadCell>
               <Table.HeadCell>BEĞENİ Sayısı</Table.HeadCell>
               <Table.HeadCell>Yazı ID</Table.HeadCell>
-              <Table.HeadCell>Kullanıcı ID</Table.HeadCell>
+              <Table.HeadCell>Üye ID</Table.HeadCell>
               <Table.HeadCell>SİL</Table.HeadCell>
             </Table.Head>
             {comments.map((comment) => (

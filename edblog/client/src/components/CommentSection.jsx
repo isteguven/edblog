@@ -128,7 +128,7 @@ export default function CommentSection({ postId }) {
         </div>
       ) : (
         <div className="text-sm text-teal-500 my-5 flex gap-1">
-          Yorum/değerlendirme yapabilmek için kullanıcı girişi yapmalısınız...
+          Yorum/değerlendirme yapabilmek için üye girişi yapmalısınız...
           <Link className="text-blue-500 hover:underline" to={"/sign-in"}>
             Giriş
           </Link>

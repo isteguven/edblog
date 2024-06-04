@@ -9,7 +9,7 @@ export const test = (req,res) =>{
 
 export const updateUser = async (req, res, next) => {
       if (req.user.id !== req.params.userId) {
-      return next(errorHandler(403, 'Bu kullanıcı bilgilerini güncelleme yetkiniz yok!'));
+      return next(errorHandler(403, 'Bu üye bilgilerini güncelleme yetkiniz yok!'));
     }
     if (req.body.password) {
       if (req.body.password.length < 6) {
@@ -20,18 +20,18 @@ export const updateUser = async (req, res, next) => {
 if (req.body.username) {
     if (req.body.username.length < 7 || req.body.username.length > 20) {
       return next(
-        errorHandler(400, 'Kullanıcı adı en az yedi, en fazla 20 karakter uzunluğunda olabilir!')
+        errorHandler(400, 'Üye adı en az yedi, en fazla 20 karakter uzunluğunda olabilir!')
       );
     }    
     if (req.body.username.includes(' ')) {
-        return next(errorHandler(400, 'Kullanıcı adı, boşluk içeremez!'));
+        return next(errorHandler(400, 'Üye adı, boşluk içeremez!'));
       }
       if (req.body.username !== req.body.username.toLowerCase()) {
-        return next(errorHandler(400, 'Kullanıcı adı, küçük karakterlerden oluşmalı!'));
+        return next(errorHandler(400, 'Üye adı, küçük karakterlerden oluşmalı!'));
       }
       if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
         return next(
-          errorHandler(400, 'Kullanıcı adı, yalnızca harf ve rakamlardan oluşmalı!')
+          errorHandler(400, 'Üye adı, yalnızca harf ve rakamlardan oluşmalı!')
         );
       }
     }
@@ -57,11 +57,11 @@ if (req.body.username) {
 
     export const deleteUser = async(req,res,next)=>{
         if(!req.user.isAdmin && req.user.id !== req.params.userId){
-          return next(errorHandler(403,'Bu kullanıcı hesabını silme yetkiniz yok!'))
+          return next(errorHandler(403,'Bu üye hesabını silme yetkiniz yok!'))
         }
         try {
           await User.findByIdAndDelete(req.params.userId);
-          res.status(200).json('Kullanıcı hesabı silindi!');
+          res.status(200).json('Üye hesabı silindi!');
         } catch (error) {
           next(error);
         }
@@ -72,7 +72,7 @@ if (req.body.username) {
           res
             .clearCookie('access_token')
             .status(200)
-            .json('Kullanıcı çıkış yaptı!');
+            .json('Üye çıkış yaptı!');
         } catch (error) {
           next(error);
         }
@@ -124,7 +124,7 @@ if (req.body.username) {
         try {
           const user = await User.findById(req.params.userId);
           if (!user) {
-            return next(errorHandler(404, 'Kullanıcı bulunamadı!'));
+            return next(errorHandler(404, 'Üye bulunamadı!'));
           }
           const { password, ...rest } = user._doc;
           res.status(200).json(rest);

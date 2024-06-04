@@ -52,7 +52,7 @@ export default function FooterCom() {
               <Footer.Title title='Yükümlülükler' />
               <Footer.LinkGroup col>
                 <Footer.Link href='#'>KVKK</Footer.Link>
-                <Footer.Link href='#'>Kullanıcı &amp; Sözleşmesi</Footer.Link>
+                <Footer.Link href='#'>Üye &amp; Sözleşmesi</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>

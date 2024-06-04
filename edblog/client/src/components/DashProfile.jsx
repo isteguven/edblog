@@ -125,7 +125,7 @@ export default function DashProfile() {
         setUpdateUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
-        setUpdateUserSuccess("Kullanıcı profil bilgileri güncellendi!");
+        setUpdateUserSuccess("Üye profil bilgileri güncellendi!");
       }
     } catch (error) {
       dispatch(updateFailure(error.message));

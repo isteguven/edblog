@@ -71,7 +71,7 @@ export default function DashUsers() {
             <Table.Head>
               <Table.HeadCell>OLUŞTURMA TARİHİ</Table.HeadCell>
               <Table.HeadCell>KULLANICI GÖRSELİ</Table.HeadCell>
-              <Table.HeadCell>Kullanıcı Adı</Table.HeadCell>
+              <Table.HeadCell>Üye Adı</Table.HeadCell>
               <Table.HeadCell>E-posta</Table.HeadCell>
               <Table.HeadCell>ADMİN</Table.HeadCell>
               <Table.HeadCell>SİL</Table.HeadCell>
@@ -118,12 +118,12 @@ export default function DashUsers() {
               onClick={handleShowMore}
               className='w-full text-teal-500 self-center text-sm py-7'
             >
-              Daha Fazla Kullanıcı...
+              Daha Fazla Üye...
             </button>
           )}
         </>
       ) : (
-        <p>Henüz kullanıcı/üye yok!</p>
+        <p>Henüz üye yok!</p>
       )}
       <Modal
         show={showModal}
@@ -136,7 +136,7 @@ export default function DashUsers() {
           <div className='text-center'>
             <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
             <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
-              Bu kullanıcıyı silmek istediğinizden emin misiniz?
+              Bu üyeyi silmek istediğinizden emin misiniz?
             </h3>
             <div className='flex justify-center gap-4'>
               <Button color='failure' onClick={handleDeleteUser}>

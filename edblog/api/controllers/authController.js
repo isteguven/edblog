@@ -25,7 +25,7 @@ export const signup = async (req, res,next) => {
   });
   try {
     await newUser.save();
-    res.json({ message: "Yeni kullanıcı kaydı başarılı!" });
+    res.json({ message: "Yeni üye kaydı başarılı!" });
   } catch (error) {
     next(error);
   }
@@ -41,7 +41,7 @@ export const signin = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) {
-      return next(errorHandler(404, 'Kullanıcı bulunamadı!'));
+      return next(errorHandler(404, 'Üye bulunamadı!'));
     }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
