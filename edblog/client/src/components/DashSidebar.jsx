@@ -27,8 +27,8 @@ export default function DashSidebar() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', {
-        method: 'POST',
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
       });
       const data = await res.json();
       if (!res.ok) {
@@ -50,35 +50,50 @@ export default function DashSidebar() {
               icon={HiUser}
               label={currentUser.isAdmin ? "Admin" : "Kullanıcı"}
               labelColor="dark"
-              as='div'
+              as="div"
             >
               Profil
             </Sidebar.Item>
           </Link>
-{currentUser.isAdmin && (
-  <Link to='/dashboard?tab=posts'>
-  <Sidebar.Item
-  active={tab==='posts'}
-  icon={HiDocumentText}  
-  as='div'
-  >
-    Yazılar
-  </Sidebar.Item>
-</Link>
-)}
-{currentUser.isAdmin && (
-  <Link to='/dashboard?tab=users'>
-  <Sidebar.Item
-  active={tab==='users'}
-  icon={HiOutlineUserGroup}  
-  as='div'
-  >
-    Kullanıcılar
-  </Sidebar.Item>
-</Link>
-)}
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=posts">
+              <Sidebar.Item
+                active={tab === "posts"}
+                icon={HiDocumentText}
+                as="div"
+              >
+                Yazılar
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+              <>
+            <Link to="/dashboard?tab=users">
+              <Sidebar.Item
+                active={tab === "users"}
+                icon={HiOutlineUserGroup}
+                as="div"
+              >
+                Kullanıcılar
+              </Sidebar.Item>
+            </Link>
+            <Link to='/dashboard?tab=comments'>
+            <Sidebar.Item
+              active={tab === 'comments'}
+              icon={HiAnnotation}
+              as='div'
+            >
+              Yorumlar
+            </Sidebar.Item>
+          </Link>
+        </>
+          )}
 
-          <Sidebar.Item onClick={handleSignout} icon={HiArrowSmRight} className="cursor-pointer">
+          <Sidebar.Item
+            onClick={handleSignout}
+            icon={HiArrowSmRight}
+            className="cursor-pointer"
+          >
             Çıkış
           </Sidebar.Item>
         </Sidebar.ItemGroup>
